@@ -1,49 +1,87 @@
 # Cryptr with Go API
 
-## 01 - Configuration
+## 01 - Validate access tokens
 
-🛠️️ First we create a new directory for our new go project:
+### Install dependencies
 
-```bash
-mkdir cryptr-go-api-sample
-cd cryptr-go-api-sample
-```
-
-🛠️️ Now that we're in our new project directory, we can run `go mod init`:
+🛠️️ Run the following commands in your terminal:
 
 ```bash
-go mod init cryptr.com/sample
+go get -d github.com/form3tech-oss/jwt-go
+go get -d github.com/codegangsta/negroni
+go get -d github.com/gorilla/mux
 ```
 
-To tell Go modules what the name of our module is, we use go mod init, with the fully qualified path to our module. We have a new file, called go.mod, that includes our module and the Go version we used. When we add imports to our Go code later, they'll also be added to this file.
+Note:   
+__- [form3tech-oss/jwt-go](https://github.com/form3tech-oss/jwt-go) to verify incoming JWTs__  
+__- [codegangsta/negroni](https://github.com/urfave/negroni) for HTTP middleware__  
+__- [gorilla/mux](https://github.com/gorilla/mux) to handle our routes__  
 
-🛠️️ Next, create a file `main.go`:
+### Create simple rendering courses
 
-```bash
-touch main.go
-```
-
-🛠️️ Open `main.go` file and add `package main` inside it
-
-🛠️️ Now copy paste this structure for the project inside the `main.go`:
+🛠️️ Import `encoding/json`, `net/http`, and `github.com/gorilla/mux` in `main.go`:
 
 ```go
-type Teacher struct {
-	Name    string `json:"name"`
-	Picture string `json:"picture"`
-}
+import (
+	"encoding/json"
+	"net/http"
+	"github.com/gorilla/mux"
+)
+```
 
-type Course struct {
-	Id        int      `json:"id"`
-	User_id   string   `json:"user_id"`
-	Title     string   `json:"title"`
-	Tags      []string `json:"tags"`
-	Img       string   `json:"img"`
-	Desc      string   `json:"desc"`
-	Date      string   `json:"date"`
-	Timestamp string   `json:"timestamp"`
-	Teacher   Teacher  `json:"teacher"`
+🛠️️ Add the courses function:
+
+```go
+func courses() []Course {
+	t := Teacher{"Max", "https://images.unsplash.com/photo-1558531304-a4773b7e3a9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"}
+	cTags := []string{"colaborate", "git", "cli", "commit", "versionning"}
+	c := Course{1, "eba25511-afce-4c8e-8cab-f82822434648", "learn git", cTags, "https://carlchenet.com/wp-content/uploads/2019/04/git-logo.png", "Learn how to create, manage, fork, and collaborate on a project. Git stays a major part of all companies projects. Learning git is learning how to make your project better everyday", "5 nov", "1604577600000", t}
+	return []Course{c}
 }
 ```
 
-[Next](https://github.com/cryptr-examples/cryptr-laravel-api-sample/tree/02-validate-access-tokens)
+🛠️️ Add `func main()`:
+
+```go
+func main() {
+	r := mux.NewRouter()
+	r.Handle("/api/v1/courses", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		jsonResponse, err := json.Marshal(courses())
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(jsonResponse)
+
+	}))
+
+	http.ListenAndServe(":8000", r)
+}
+```
+
+The main function will manage the routes, accept requests on `/api/v1/courses`, and will return the Courses (in `func courses()`).
+
+🛠️️ Run the code with command `go run .` and open **insomnia** or **postman** to make a `GET` request that should end with `200`
+
+### JWT authentication types
+
+🛠️️Add authentication types in `main.go`:
+
+```go
+type Jwks struct {
+	Keys []JSONWebKeys `json:"keys"`
+}
+
+type JSONWebKeys struct {
+	Kty string   `json:"kty"`
+	Kid string   `json:"kid"`
+	Use string   `json:"use"`
+	N   string   `json:"n"`
+	E   string   `json:"e"`
+	X5c []string `json:"x5c"`
+}
+```
+
+[Next](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/03-add-your-cryptr-credentials)
