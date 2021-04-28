@@ -37,6 +37,12 @@ type JSONWebKeys struct {
 	X5c []string `json:"x5c"`
 }
 
+type CryptrConfig struct {
+	AUDIENCE        string
+	CRYPTR_BASE_URL string
+	TENANT_DOMAIN   string
+}
+
 func courses() []Course {
 	t := Teacher{"Max", "https://images.unsplash.com/photo-1558531304-a4773b7e3a9c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"}
 	cTags := []string{"colaborate", "git", "cli", "commit", "versionning"}
@@ -45,6 +51,12 @@ func courses() []Course {
 }
 
 func main() {
+	cryptrConfig := CryptrConfig{
+		"http://localhost:8081",
+		"https://cleeck-umbrella-staging-eu.onrender.com",
+		"shark-academy",
+	}
+
 	r := mux.NewRouter()
 	r.Handle("/api/v1/courses", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		jsonResponse, err := json.Marshal(courses())
