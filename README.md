@@ -46,4 +46,4 @@ type Course struct {
 }
 ```
 
-[Next](https://github.com/cryptr-examples/cryptr-laravel-api-sample/tree/02-validate-access-tokens)
+[Next](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/02-validate-access-tokens)
