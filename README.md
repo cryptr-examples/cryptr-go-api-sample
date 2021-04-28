@@ -1,9 +1,49 @@
 # Cryptr with Go API
 
-## [01 Create a Go project](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/01-create-go-project)
+## 01 - Configuration
 
-## [02 Validate access tokens](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/03-validate-access-tokens)
+🛠️️ First we create a new directory for our new go project:
 
-## [03 Add your cryptr credentials](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/02-add-your-cryptr-credentials)
+```bash
+mkdir cryptr-go-api-sample
+cd cryptr-go-api-sample
+```
 
-## [04 Protect API Endpoints](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/04-protect-api-endpoints)
+🛠️️ Now that we're in our new project directory, we can run `go mod init`:
+
+```bash
+go mod init cryptr.com/sample
+```
+
+To tell Go modules what the name of our module is, we use go mod init, with the fully qualified path to our module. We have a new file, called go.mod, that includes our module and the Go version we used. When we add imports to our Go code later, they'll also be added to this file.
+
+🛠️️ Next, create a file `main.go`:
+
+```bash
+touch main.go
+```
+
+🛠️️ Open `main.go` file and add `package main` inside it
+
+🛠️️ Now copy paste this structure for the project inside the `main.go`:
+
+```go
+type Teacher struct {
+	Name    string `json:"name"`
+	Picture string `json:"picture"`
+}
+
+type Course struct {
+	Id        int      `json:"id"`
+	User_id   string   `json:"user_id"`
+	Title     string   `json:"title"`
+	Tags      []string `json:"tags"`
+	Img       string   `json:"img"`
+	Desc      string   `json:"desc"`
+	Date      string   `json:"date"`
+	Timestamp string   `json:"timestamp"`
+	Teacher   Teacher  `json:"teacher"`
+}
+```
+
+[Next](https://github.com/cryptr-examples/cryptr-laravel-api-sample/tree/02-validate-access-tokens)
