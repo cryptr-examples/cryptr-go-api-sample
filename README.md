@@ -1,6 +1,6 @@
 # Cryptr with Go API
 
-## 01 - Validate access tokens
+## 02 - Validate access tokens
 
 ### Install dependencies
 
