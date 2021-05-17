@@ -19,7 +19,7 @@ func main() {
   // Instantiate project config:
 	cryptrConfig := CryptrConfig{
 		"http://localhost:8081",
-		"https://cleeck-umbrella-staging-eu.onrender.com",
+		"https://auth.cryptr.eu",
 		"YOUR_DOMAIN",
 	}
 
@@ -39,5 +39,7 @@ func main() {
 	http.ListenAndServe(":8000", r)
 }
 ```
+
+Note: __If you are from the EU, you must add `https://auth.cryptr.eu/` and if you are from the US, you must add `https://auth.cryptr.us/`__
 
 [Next](https://github.com/cryptr-examples/cryptr-go-api-sample/tree/04-protect-api-endpoints)

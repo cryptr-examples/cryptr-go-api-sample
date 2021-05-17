@@ -53,7 +53,7 @@ func courses() []Course {
 func main() {
 	cryptrConfig := CryptrConfig{
 		"http://localhost:8081",
-		"https://cleeck-umbrella-staging-eu.onrender.com",
+		"https://auth.cryptr.eu",
 		"shark-academy",
 	}
 
