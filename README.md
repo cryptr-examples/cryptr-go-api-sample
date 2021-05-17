@@ -265,7 +265,7 @@ import (
 func main() {
 	cryptrConfig := CryptrConfig{
 		"http://localhost:8081",
-		"https://cleeck-umbrella-staging-eu.onrender.com",
+		"https://auth.cryptr.eu",
 		"shark-academy",
 	}
 	// 2. Instantiate cryptr jwt middleware:
@@ -281,7 +281,7 @@ func main() {
 func main() {
 	cryptrConfig := CryptrConfig{
 		"http://localhost:8081",
-		"https://cleeck-umbrella-staging-eu.onrender.com",
+		"https://auth.cryptr.eu",
 		"shark-academy",
 	}
 	jwtMiddleware := NewCryptrJwtMiddleware(cryptrConfig)
